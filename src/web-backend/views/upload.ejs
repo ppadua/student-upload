@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Upload</title>
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function(){
+        
+        $("#student_upload").on("submit", function(){
+            const files = document.getElementById("upload_files");
+            const formData = new FormData();
+
+            for(let i =0; i < files.files.length; i++) {
+                formData.append("files", files.files[i]);   
+            }
+
+            fetch($(this).attr("action"), {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (res) => {
+                let data = await res.json()
+                console.log(data)
+                
+                $("#suggestion").html("<h3>Suggestions</h3>"+data.result.choices[0].message.content.replaceAll("\n", "</br>"))
+            })
+            .catch((err) => ("Error occured", err)); 
+            
+            return false;
+        })
+    })
+
+  </script>
+</head>
+<body>
+    <div>
+        <form action="student_upload" method="POST" id="student_upload">
+            <input type="file" name="upload_file" multiple  id="upload_files">
+            <input type="submit" value="upload">
+        </form>
+    </div>
+    <div id="suggestion">
+    </div>
+</body>
+</html>
