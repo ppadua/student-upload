@@ -1,15 +1,18 @@
 import express from "express";
+import BodyParser from "body-parser";
+
+import Constants from "./configs/constants.js";
+import Routes from "./routes/routes.js";
 
 const App = express();
-const PORT = 8000;
 
-App.use(express.json());
-App.use(express.urlencoded({ extended: true }));
+App.use(BodyParser.json({ limit: "50mb" }));
+App.use(BodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-App.get("/", (req, res) => {
-	res.send("Hello, World!");
-});
+App.use("/", Routes);
 
-App.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`);
+App.listen(Constants.APP_SETTINGS.port, () => {
+	console.log(
+		`Server is now running on http://localhost:${Constants.APP_SETTINGS.port}`
+	);
 });
