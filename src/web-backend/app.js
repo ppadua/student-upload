@@ -8,6 +8,7 @@ const App = express();
 
 App.use(BodyParser.json({ limit: "50mb" }));
 App.use(BodyParser.urlencoded({ limit: "50mb", extended: true }));
+App.set('view engine', 'ejs');
 
 App.use("/", Routes);
 
