@@ -13,7 +13,8 @@ class ChatCompletion {
         let response_data = { status: false, result: "", message: "", error: null };
         try {
 
-            if(this.#req?.prompt){
+            if(this.#req?.body.prompt){
+                let prompt = this.#req.body.prompt;
 
                 let openAIHelper    = new OpenAIHelper();
                 response_data       = await openAIHelper.chatCompletionAssistant(prompt);
