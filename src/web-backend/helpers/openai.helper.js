@@ -23,7 +23,7 @@ class OpenAIHelper {
 
         // return new Promise(async (resolve, reject) => {
         try {
-
+            console.log(messages)
             /* Check if custom prompt is provided */
             if (messages) {
 

@@ -26,8 +26,9 @@
             .then(async (res) => {
                 let data = await res.json()
                 console.log(data)
-                
-                $("#suggestion").html("<h3>Suggestions</h3>"+data.result.choices[0].message.content.replaceAll("\n", "</br>"))
+                let result = data.result.choices[0].message.content
+
+                $("#suggestion textarea").val(result)
             })
             .catch((err) => ("Error occured", err)); 
             
@@ -45,6 +46,10 @@
         </form>
     </div>
     <div id="suggestion">
+        <h3>Suggestions: </h3>
+        <textarea readonly wrap="soft"  rows="30" cols="150" style="resize: none; margin-top: 10px;">
+
+        </textarea>
     </div>
 </body>
 </html>
